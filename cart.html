@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amrit - Your Cart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+        .cart-item { transition: all 0.3s ease; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        .cart-item:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .quantity-btn { transition: all 0.2s ease; }
+        .quantity-btn:hover { background-color: #e2e8f0; }
+        .remove-btn { transition: all 0.2s ease; }
+        .remove-btn:hover { color: #ef4444; transform: scale(1.1); }
+        .slide-in { animation: slideIn 0.5s forwards; }
+        @keyframes slideIn { from { transform: translateX(30px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .checkout-btn { transition: all 0.3s ease; background-size: 200% auto;
+            background-image: linear-gradient(to right, #3b82f6 0%, #6366f1 51%, #3b82f6 100%); }
+        .checkout-btn:hover { background-position: right center; transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3); }
+        .empty-cart-animation { animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.05); opacity: 1; } 100% { transform: scale(1); opacity: 0.7; } }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen bg-gray-50 pt-8 pb-20">
+        <div class="container mx-auto px-4">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-8">
+                <h1 class="text-3xl font-bold text-blue-600 flex items-center">
+                    <i class="fas fa-tint mr-2"></i> Amrit Water Bottles
+                </h1>
+                <div class="flex items-center">
+                    <a href="index.html" class="text-gray-600 hover:text-blue-600 mr-4">
+                        <i class="fas fa-home mr-1"></i> Home
+                    </a>
+                    <a href="product-section.html" class="text-gray-600 hover:text-blue-600 mr-4">
+                        <i class="fas fa-shopping-bag mr-1"></i> Shop
+                    </a>
+                    <div class="relative">
+                        <a href="cart.html" class="text-gray-600 hover:text-blue-600">
+                            <i class="fas fa-shopping-cart mr-1"></i> Cart <span class="cart-count ml-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cart Title -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6 slide-in">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-2xl font-bold text-gray-800 flex items-center">
+                        <i class="fas fa-shopping-cart mr-3 text-blue-500"></i> Your Cart
+                    </h2>
+                    <span class="text-gray-500 cart-item-count">0 items</span>
+                </div>
+            </div>
+            
+            <!-- Cart Items -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 space-y-4 cart-items-container">
+                    <!-- Dynamic items will be added here -->
+                </div>
+                
+                <!-- Order Summary -->
+                <div class="bg-white rounded-lg shadow-md p-6 slide-in order-summary" style="animation-delay: 0.4s;">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">Order Summary</h3>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Subtotal</span>
+                            <span class="font-medium subtotal">$0.00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Delivery</span>
+                            <span class="font-medium delivery">$30.00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Discount</span>
+                            <span class="font-medium text-green-500 discount-amount">$0.00</span>
+                        </div>
+                        <div class="pt-3 border-t border-gray-200">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Estimated Tax</span>
+                                <span class="font-medium tax">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="border-t border-gray-200 pt-4 mb-6">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">Total</span>
+                            <span class="font-bold text-2xl text-blue-600 total-amount">$0.00</span>
+                        </div>
+                    </div>
+                   <!-- Order Summary -->
+<a href="deliver.html" 
+   class="checkout-btn w-full py-3 px-6 rounded-lg text-white font-bold text-lg mb-4 block text-center">
+    Proceed to Checkout
+</a>
+                    <div class="flex items-center justify-center text-gray-500 text-sm">
+                        <i class="fas fa-lock mr-2"></i>
+                        <span>Secure Checkout</span>
+                    </div>
+                    
+                    <div class="mt-6 pt-6 border-t border-gray-200">
+                        <h4 class="font-medium text-gray-700 mb-3">Accepted Payment Methods</h4>
+                        <div class="flex space-x-4">
+                            <img src="https://placehold.co/40x25" alt="Visa payment method logo" class="h-6 opacity-70">
+                            <img src="https://placehold.co/40x25" alt="Mastercard payment method logo" class="h-6 opacity-70">
+                            <img src="https://placehold.co/40x25" alt="Paypal payment method logo" class="h-6 opacity-70">
+                            <img src="https://placehold.co/40x25" alt="Apple Pay payment method logo" class="h-6 opacity-70">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Empty Cart State (hidden by default) -->
+            <div id="empty-cart" class="bg-white rounded-lg shadow-md p-8 text-center hidden">
+                <div class="empty-cart-animation mb-6">
+                    <i class="fas fa-frown text-5xl text-gray-400"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-700 mb-2">Your cart is empty</h3>
+                <p class="text-gray-500 mb-6">Looks like you haven't added anything to your cart yet</p>
+                <a href="product-section.html" class="inline-block bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg transition duration-300">
+                    Browse Products
+                </a>
+            </div>
+            
+            <!-- Continue Shopping -->
+            <div class="mt-8 text-center">
+                <a href="product-section.html" class="inline-block text-blue-600 hover:text-blue-800 font-medium">
+                    <i class="fas fa-arrow-left mr-2"></i> Continue Shopping
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cart functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            let appliedDiscount = 0;
+
+            function updateCartCount() {
+                let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                let count = cart.reduce((sum, p) => sum + p.quantity, 0);
+                document.querySelectorAll('.cart-count').forEach(el => el.textContent = count);
+            }
+
+            function renderCart() {
+                const container = document.querySelector('.cart-items-container');
+                const orderSummary = document.querySelector('.order-summary');
+                const emptyCart = document.querySelector('#empty-cart');
+
+                container.innerHTML = '';
+                let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+                if (cart.length === 0) {
+                    emptyCart.classList.remove('hidden');
+                    orderSummary.classList.add('hidden');
+                    document.querySelector('.cart-item-count').textContent = '0 items';
+                    return;
+                } else {
+                    emptyCart.classList.add('hidden');
+                    orderSummary.classList.remove('hidden');
+                }
+
+                let itemCount = cart.reduce((sum, p) => sum + p.quantity, 0);
+                document.querySelector('.cart-item-count').textContent = `${itemCount} items`;
+
+                cart.forEach((product, index) => {
+                    const item = document.createElement('div');
+                    item.classList.add('cart-item', 'bg-white', 'rounded-lg', 'shadow-md', 'p-4', 'flex', 'flex-col', 'md:flex-row', 'slide-in');
+                    item.style.animationDelay = `${index * 0.1}s`;
+                    item.innerHTML = `
+                        <div class="md:w-1/4 mb-4 md:mb-0">
+                            <img src="${product.image}" alt="${product.name}" class="w-full h-auto rounded-lg object-cover">
+                        </div>
+                        <div class="md:w-3/4 md:pl-6">
+                            <div class="flex justify-between">
+                                <h3 class="text-lg font-semibold text-gray-800">${product.name}</h3>
+                                <button class="remove-btn text-gray-400 hover:text-red-500">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <p class="text-gray-500 text-sm mb-2">Quantity: ${product.quantity}</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <button class="quantity-btn decrease w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center">
+                                        <i class="fas fa-minus text-xs"></i>
+                                    </button>
+                                    <span class="mx-4 font-medium quantity">${product.quantity}</span>
+                                    <button class="quantity-btn increase w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center">
+                                        <i class="fas fa-plus text-xs"></i>
+                                    </button>
+                                </div>
+                                <div>
+                                    <span class="font-bold text-lg text-gray-800">$${(product.price * product.quantity).toFixed(2)}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(item);
+
+                    // Remove button
+                    item.querySelector('.remove-btn').addEventListener('click', () => {
+                        cart = cart.filter(p => p.id !== product.id);
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        renderCart();
+                        updateCartCount();
+                    });
+
+                    // Quantity buttons
+                    item.querySelector('.increase').addEventListener('click', () => {
+                        product.quantity += 1;
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        renderCart();
+                        updateCartCount();
+                    });
+
+                    item.querySelector('.decrease').addEventListener('click', () => {
+                        if (product.quantity > 1) {
+                            product.quantity -= 1;
+                            localStorage.setItem('cart', JSON.stringify(cart));
+                            renderCart();
+                            updateCartCount();
+                        }
+                    });
+                });
+
+                updateSummary(appliedDiscount);
+            }
+
+            function updateSummary(discount = 0) {
+                let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                let subtotal = cart.reduce((sum, p) => sum + (p.price * p.quantity), 0);
+                let deliveryFee = cart.length > 0 ? 30 : 0;
+                let tax = subtotal * 0.06;
+                let total = subtotal + deliveryFee - discount + tax;
+
+                document.querySelector('.subtotal').textContent = `$${subtotal.toFixed(2)}`;
+                document.querySelector('.delivery').textContent = `$${deliveryFee.toFixed(2)}`;
+                document.querySelector('.discount-amount').textContent = `-$${discount.toFixed(2)}`;
+                document.querySelector('.tax').textContent = `$${tax.toFixed(2)}`;
+                document.querySelector('.total-amount').textContent = `$${total.toFixed(2)}`;
+            }
+
+            // Checkout button
+            document.querySelector('.checkout-btn').addEventListener('click', function() {
+                const originalText = this.textContent;
+                this.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Processing...';
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    window.location.href = 'deliver.html';
+                }, 2000);
+            });
+
+            // Initial render
+            renderCart();
+            updateCartCount();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About AMRIT - Premium Water Bottles</title>
+    
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            overflow-x: hidden;
+        }
+        
+        /* Custom animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transition: all 0.3s ease;
+}
+.btn-primary:hover {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+}
+        .animate-fadeInUp {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Floating Navigation -->
+    <nav class="floating-nav fixed top-0 left-0 right-0 z-50 px-6 py-4 backdrop-filter backdrop-blur-lg bg-white bg-opacity-90">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="bottle-shape" style="width: 30px; height: 40px; border-radius: 15px;">
+                    <div class="bottle-cap" style="width: 20px; height: 10px; top: -5px;"></div>
+                </div>
+                <span class="text-2xl font-bold text-gray-800">AMRIT</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="index.html" class="text-gray-600 hover:text-blue-600 transition-colors">Home</a>
+                <a href="product-section.html" class="text-gray-600 hover:text-blue-600 transition-colors">Products</a>
+                <a href="about2.html" class="text-gray-600 hover:text-blue-600 transition-colors">About</a>
+                <a href="contact.html" class="text-gray-600 hover:text-blue-600 transition-colors">Contact</a>
+              <a href="cart.html" class="btn-primary px-6 py-2 rounded-full text-white font-medium inline-flex items-center">
+                    <i class="fas fa-shopping-cart mr-2"></i>Cart <span class="cart-count ml-2 bg-white text-purple-600 rounded-full px-2 py-1 text-xs">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Section -->
+    <section id="about" class="py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="animate-fadeInLeft">
+                    <h2 class="text-5xl font-bold text-gray-800 mb-8">About AMRIT</h2>
+                    <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                        Founded with a mission to revolutionize hydration, AMRIT combines ancient wisdom with modern technology. 
+                        Our name, inspired by the Sanskrit word for "nectar of immortality," reflects our commitment to purity and life-enhancing experiences.
+                    </p>
+                    <div class="grid grid-cols-2 gap-8">
+                        <div>
+                            <div class="text-4xl font-bold text-purple-600 mb-2">10+</div>
+                            <div class="text-gray-600">Years of Innovation</div>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-bold text-purple-600 mb-2">500K+</div>
+                            <div class="text-gray-600">Bottles Sold</div>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-bold text-purple-600 mb-2">25</div>
+                            <div class="text-gray-600">Countries Reached</div>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-bold text-purple-600 mb-2">98%</div>
+                            <div class="text-gray-600">Satisfaction Rate</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="animate-fadeInRight">
+                    <div class="relative">
+                        <div class="bg-gradient-to-br from-purple-400 to-blue-500 rounded-3xl p-12 text-white">
+                            <h3 class="text-3xl font-bold mb-6">Our Vision</h3>
+                            <p class="text-lg mb-8">
+                                To create a world where everyone has access to pure, sustainable hydration solutions 
+                                that enhance their well-being and protect our planet.
+                            </p>
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-globe text-white"></i>
+                                </div>
+                                <div>
+                                    <div class="font-semibold">Global Impact</div>
+                                    <div class="text-blue-100">Making a difference worldwide</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="bottle-shape" style="width: 30px; height: 40px; border-radius: 15px;">
+                            <div class="bottle-cap" style="width: 20px; height: 10px; top: -5px;"></div>
+                        </div>
+                        <span class="text-2xl font-bold">AMRIT</span>
+                    </div>
+                    <p class="text-gray-400 mb-6">
+                        Pure water, pure life. Experience the difference with AMRIT premium water bottles.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-purple-600 transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-purple-600 transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-purple-600 transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-purple-600 transition-colors">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Products</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Sport Series</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Office Series</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Luxury Series</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Accessories</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Company</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Press</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Support</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Help Center</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Shipping Info</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Returns</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                <p class="text-gray-400">
+                    © 2024 AMRIT. All rights reserved. | Privacy Policy | Terms of Service
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Interactive Elements -->
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Cart count update
+        function updateCartCount() {
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            let count = cart.reduce((sum, p) => sum + p.quantity, 0);
+            document.querySelectorAll('.cart-count').forEach(el => el.textContent = count);
+        }
+
+        updateCartCount();
+    </script>
+</body>
+</html>

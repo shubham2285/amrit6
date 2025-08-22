@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amrit Water Delivery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @media (max-width: 640px) {
+            .mobile-stack {
+                flex-direction: column;
+            }
+            .mobile-px-2 {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #0070f3 0%, #00c6fb 100%);
+        }
+        .delivery-truck {
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .truck-path {
+            position: relative;
+            height: 4px;
+            background-color: #e9ecef;
+        }
+        .truck-path::before {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 100%;
+            background-color: #0070f3;
+            border-radius: 4px;
+        }
+        input:focus, select:focus, textarea:focus {
+            box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.5);
+        }
+        .product-card {
+            transition: transform 0.2s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        .subscription-success {
+            display: none;
+            color: #10b981;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+        .mobile-text-sm {
+            font-size: 0.875rem;
+        }
+        .mobile-text-base {
+            font-size: 1rem;
+        }
+        .error-message {
+            color: #dc2626;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+        .error {
+            border-color: #dc2626 !important;
+        }
+        .coupon-btn {
+            transition: all 0.3s ease;
+        }
+        .coupon-btn:hover:not(:disabled) {
+            background-color: #e0e7ff;
+            color: #6366f1;
+        }
+        .coupon-btn.error {
+            background-color: #fee2e2;
+            color: #b91c1c;
+        }
+        .slide-in {
+            animation: slideIn 0.5s forwards;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        .success-animation {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in;
+        }
+        .success-checkmark {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: block;
+            stroke-width: 2;
+            stroke: #10b981;
+            stroke-miterlimit: 10;
+            margin: 10% auto;
+            box-shadow: inset 0px 0px 0px #10b981;
+            animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;
+        }
+        .success-checkmark__circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 2;
+            stroke-miterlimit: 10;
+            stroke: #10b981;
+            fill: none;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+        .success-checkmark__check {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+        }
+        @keyframes stroke {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+        @keyframes scale {
+            0%, 100% {
+                transform: none;
+            }
+            50% {
+                transform: scale3d(1.1, 1.1, 1);
+            }
+        }
+        @keyframes fill {
+            100% {
+                box-shadow: inset 0px 0px 0px 30px #10b981;
+            }
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <header class="gradient-bg text-white py-4 px-4 md:py-8">
+        <div class="container mx-auto">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl md:text-4xl font-bold">Amrit</h1>
+                    <p class="mt-1 md:mt-2 text-blue-100 mobile-text-sm">Premium Water Delivery</p>
+                </div>
+                <div class="h-12 w-12 md:h-20 md:w-20 bg-white rounded-full flex items-center justify-center overflow-hidden">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c8818a97-d601-4fcf-9974-a8965738b533.png" 
+                         alt="Amrit logo - A blue water droplet with a leaf element inside" 
+                         class="h-10 md:h-16 w-auto">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-2 md:px-4 py-4 md:py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+            <div class="lg:col-span-2">
+                <form id="deliveryForm" class="bg-white rounded-lg md:rounded-xl shadow-sm md:shadow-md overflow-hidden p-4 md:p-6">
+                    <div class="space-y-6">
+                        <div class="mb-4 flex items-start">
+                            <div class="w-6 h-6 md:w-8 md:h-8 rounded-full bg-blue-600 text-white flex items-center justify-center flex-shrink-0">1</div>
+                            <div class="ml-2 md:ml-3">
+                                <h2 class="text-lg md:text-xl font-semibold">Customer Details</h2>
+                                <div class="grid grid-cols-1 gap-4 mt-3">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label for="fullName" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                                            <input type="text" id="fullName" name="fullName" required 
+                                                class="w-full px-3 py-2 text-sm md:text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                            <span id="fullNameError" class="error-message">Please enter a valid name (letters and spaces only, minimum 2 characters)</span>
+                                        </div>
+                                        <div>
+                                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                                            <input type="tel" id="phone" name="phone" required 
+                                                class="w-full px-3 py-2 text-sm md:text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                            <span id="phoneError" class="error-message">Please enter a valid 10-digit phone number</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                        <input type="email" id="email" name="email" 
+                                            class="w-full px-3 py-2 text-sm md:text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <span id="emailError" class="error-message">Please enter a valid email address</span>
+                                    </div>
+                                    <div>
+                                        <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                                        <textarea id="address" name="address" rows="2" required 
+                                            class="w-full px-3 py-2 text-sm md:text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                                        <span id="addressError" class="error-message">Please enter a valid address (minimum 10 characters)</span>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                        <div>
+                                            <label for="city" class="block text-sm font-medium text-gray-700 mb-1">City</label>
+                                            <input type="text" id="city" name="city" required 
+                                                class="w-full px-3 py-2 text-sm md:text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                            <span id="cityError" class="error-message">Please enter a valid city name (letters and spaces only)</span>
+                                        </div>
+                                        <div>
+                                            <label for="state" class="block text-sm font-medium text-gray-700 mb-1">State</label>
+                                            <input type="text" id="state" name="state" required 
+                                                class="w-full px-3 py-2 text-sm md:text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                            <span id="stateError" class="error-message">Please enter a valid state name (letters and spaces only)</span>
+                                        </div>
+                                        <div>
+                                            <label for="postalCode" class="block text-sm font-medium text-gray-700 mb-1">Postal Code</label>
+                                            <input type="text" id="postalCode" name="postalCode" required 
+                                                class="w-full px-3 py-2 text-sm md:text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                            <span id="postalCodeError" class="error-message">Please enter a valid 6-digit postal code</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="deliveryDate" class="block text-sm font-medium text-gray-700 mb-1">Delivery Date</label>
+                                        <input type="date" id="deliveryDate" name="deliveryDate" required 
+                                            class="w-full px-3 py-2 text-sm md:text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <span id="deliveryDateError" class="error-message">Please select a future delivery date</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="w-6 h-6 md:w-8 md:h-8 rounded-full bg-blue-600 text-white flex items-center justify-center flex-shrink-0">2</div>
+                            <div class="ml-2 md:ml-3 flex-1">
+                                <h2 class="text-lg md:text-xl font-semibold">Delivery Instructions</h2>
+                                <div class="mt-3">
+                                    <textarea id="instructions" name="instructions" rows="2" 
+                                        class="w-full px-3 py-2 text-sm md:text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                                        placeholder="Any special instructions..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="w-6 h-6 md:w-8 md:h-8 rounded-full bg-blue-600 text-white flex items-center justify-center flex-shrink-0">3</div>
+                            <div class="ml-2 md:ml-3 flex-1">
+                                <h2 class="text-lg md:text-xl font-semibold">Payment Method</h2>
+                                <div class="mt-3 space-y-2">
+                                    <div class="flex items-center">
+                                        <input type="radio" name="paymentMethod" value="cash" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300" checked>
+                                        <span class="ml-2 text-gray-700 mobile-text-sm md:text-base">Cash on Delivery</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="radio" name="paymentMethod" value="digital" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                        <span class="ml-2 text-gray-700 mobile-text-sm md:text-base">Pay with GPay, PhonePe, Paytm</span>
+                                    </div>
+                                </div>
+                                <div class="pt-4">
+                                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md font-medium text-sm md:text-base transition duration-150">
+                                        Place Order
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="successAnimation" class="hidden success-animation">
+                        <svg class="success-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                            <circle class="success-checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                            <path class="success-checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                        </svg>
+                        <p class="text-lg font-semibold text-gray-700">Order Placed Successfully!</p>
+                    </div>
+                </form>
+            </div>
+
+            <div>
+                <div class="bg-white rounded-lg md:rounded-xl shadow-sm md:shadow-md overflow-hidden mb-4 md:mb-6">
+                    <div class="p-4 md:p-6">
+                        <h2 class="text-lg md:text-xl font-semibold mb-4 md:mb-6">Your Order</h2>
+                        <div class="order-items-container space-y-3 md:space-y-4">
+                            <!-- Dynamic items will be added here -->
+                        </div>
+                        <div class="mt-4 md:mt-6 space-y-2 md:space-y-3">
+                            <div class="flex justify-between py-2 border-b border-gray-200">
+                                <span class="text-gray-600 text-sm md:text-base">Subtotal</span>
+                                <span class="subtotal font-medium">$0.00</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-gray-200">
+                                <span class="text-gray-600 text-sm md:text-base">Delivery</span>
+                                <span class="delivery font-medium">$30.00</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-gray-200">
+                                <span class="text-gray-600 text-sm md:text-base">Discount</span>
+                                <span class="font-medium text-green-500 discount-amount">$0.00</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-gray-200">
+                                <span class="text-gray-600 text-sm md:text-base">Tax</span>
+                                <span class="tax font-medium">$0.00</span>
+                            </div>
+                            <div class="py-2 slide-in" style="animation-delay: 0.3s;">
+                                <h3 class="font-medium text-gray-700 mb-3 text-sm md:text-base">Have a coupon code?</h3>
+                                <div class="flex">
+                                    <input type="text" id="coupon-input" placeholder="Enter coupon code" class="flex-grow border border-gray-300 rounded-l-lg px-4 py-2 text-sm md:text-base focus:outline-none focus:ring-1 focus:ring-blue-500">
+                                    <button class="coupon-btn bg-blue-50 text-blue-600 px-6 py-2 rounded-r-lg font-medium text-sm md:text-base">
+                                        Apply
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="flex justify-between py-3 border-t border-gray-200 mt-3">
+                                <span class="font-semibold text-sm md:text-base">Total</span>
+                                <span class="total font-semibold text-lg">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="delivery-truck">
+                    <div class="flex justify-between mb-2">
+                        <span class="text-sm font-medium">Order Placed</span>
+                        <span class="text-sm font-medium text-gray-500">Delivery</span>
+                    </div>
+                    <div class="truck-path mb-3 md:mb-4 mt-1"></div>
+                    <div class="flex justify-between">
+                        <div class="flex flex-col items-center">
+                            <div class="w-3 h-3 md:w-4 md:h-4 rounded-full bg-blue-600"></div>
+                            <span class="text-xs mt-1">Today</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="w-3 h-3 md:w-4 md:h-4 rounded-full bg-gray-300 border-2 border-gray-400"></div>
+                            <span class="text-xs mt-1">
+                                <span id="deliveryDateDisplay">DD Month</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="mt-4 md:mt-6 flex items-center">
+                        <div class="w-8 h-8 md:w-10 md:h-10 bg-white rounded-full flex items-center justify-center overflow-hidden mr-2 md:mr-3">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d38faa17-ea4a-4038-89e1-771a7efd5f1a.png" 
+                                 alt="Delivery truck"
+                                 class="h-6 w-6 md:h-8 md:w-8">
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium">Estimated Delivery</p>
+                            <p class="text-xs md:text-sm text-gray-600">8AM - 12PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let appliedDiscount = parseFloat(localStorage.getItem('discount') || '0');
+
+            const form = document.getElementById('deliveryForm');
+            const fields = {
+                fullName: {
+                    element: document.getElementById('fullName'),
+                    error: document.getElementById('fullNameError'),
+                    validate: value => /^[a-zA-Z\s]{2,}$/.test(value)
+                },
+                phone: {
+                    element: document.getElementById('phone'),
+                    error: document.getElementById('phoneError'),
+                    validate: value => /^\d{10}$/.test(value)
+                },
+                email: {
+                    element: document.getElementById('email'),
+                    error: document.getElementById('emailError'),
+                    validate: value => value === '' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+                },
+                address: {
+                    element: document.getElementById('address'),
+                    error: document.getElementById('addressError'),
+                    validate: value => value.length >= 10
+                },
+                city: {
+                    element: document.getElementById('city'),
+                    error: document.getElementById('cityError'),
+                    validate: value => /^[a-zA-Z\s]+$/.test(value)
+                },
+                state: {
+                    element: document.getElementById('state'),
+                    error: document.getElementById('stateError'),
+                    validate: value => /^[a-zA-Z\s]+$/.test(value)
+                },
+                postalCode: {
+                    element: document.getElementById('postalCode'),
+                    error: document.getElementById('postalCodeError'),
+                    validate: value => /^\d{6}$/.test(value)
+                },
+                deliveryDate: {
+                    element: document.getElementById('deliveryDate'),
+                    error: document.getElementById('deliveryDateError'),
+                    validate: value => {
+                        const selectedDate = new Date(value);
+                        const today = new Date();
+                        today.setHours(0, 0, 0, 0);
+                        return selectedDate > today;
+                    }
+                }
+            };
+
+            // Delivery date display
+            const deliveryDateInput = document.getElementById('deliveryDate');
+            const deliveryDateDisplay = document.getElementById('deliveryDateDisplay');
+            
+            // Set default to tomorrow
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            deliveryDateInput.min = tomorrow.toISOString().split('T')[0];
+            deliveryDateInput.value = tomorrow.toISOString().split('T')[0];
+            
+            deliveryDateInput.addEventListener('change', function() {
+                const date = new Date(this.value);
+                if (!isNaN(date.getTime())) {
+                    deliveryDateDisplay.textContent = date.toLocaleDateString('en-US', { 
+                        weekday: 'short', 
+                        month: 'short', 
+                        day: 'numeric' 
+                    });
+                }
+            });
+            
+            deliveryDateInput.dispatchEvent(new Event('change'));
+
+            // Form validation
+            function validateField(fieldName) {
+                const field = fields[fieldName];
+                const value = field.element.value.trim();
+                const isValid = field.validate(value);
+                
+                if (!isValid) {
+                    field.element.classList.add('error');
+                    field.error.style.display = 'block';
+                } else {
+                    field.element.classList.remove('error');
+                    field.error.style.display = 'none';
+                }
+                return isValid;
+            }
+
+            // Real-time validation
+            Object.keys(fields).forEach(fieldName => {
+                fields[fieldName].element.addEventListener('input', () => validateField(fieldName));
+            });
+
+            // Coupon functionality
+            const couponBtn = document.querySelector('.coupon-btn');
+            const couponInput = document.querySelector('#coupon-input');
+            couponBtn.addEventListener('click', function() {
+                const code = couponInput.value.trim().toUpperCase();
+                this.textContent = 'Applying...';
+                this.disabled = true;
+                
+                setTimeout(() => {
+                    if (code === 'AMRIT2285') {
+                        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                        let subtotal = cart.reduce((sum, p) => sum + (p.price * p.quantity), 0);
+                        appliedDiscount = subtotal * 0.05; // 5%
+                        localStorage.setItem('discount', appliedDiscount.toFixed(2));
+                        updateOrderSummary(subtotal, cart.length > 0 ? 30 : 0, subtotal * 0.06, appliedDiscount);
+                        this.textContent = 'Applied!';
+                        this.style.backgroundColor = '#e0f2fe';
+                        this.style.color = '#0369a1';
+                    } else {
+                        appliedDiscount = 0;
+                        localStorage.setItem('discount', '0');
+                        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                        let subtotal = cart.reduce((sum, p) => sum + (p.price * p.quantity), 0);
+                        updateOrderSummary(subtotal, cart.length > 0 ? 30 : 0, subtotal * 0.06, 0);
+                        this.textContent = 'Wrong code';
+                        this.classList.add('error');
+                        setTimeout(() => {
+                            this.textContent = 'Apply';
+                            this.classList.remove('error');
+                            this.style.backgroundColor = '';
+                            this.style.color = '';
+                            this.disabled = false;
+                        }, 2000);
+                    }
+                }, 800);
+            });
+
+            // Render order from cart
+            function renderOrder() {
+                const container = document.querySelector('.order-items-container');
+                container.innerHTML = '';
+                let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                let discount = parseFloat(localStorage.getItem('discount') || '0');
+                
+                if (cart.length === 0) {
+                    container.innerHTML = '<p class="text-center text-gray-500">Your order is empty. Add products from the cart.</p>';
+                    updateOrderSummary(0, 0, 0, 0);
+                    return;
+                }
+
+                let subtotal = 0;
+                cart.forEach((product) => {
+                    subtotal += product.price * product.quantity;
+                    const item = document.createElement('div');
+                    item.classList.add('product-card', 'bg-gray-50', 'p-3', 'md:p-4', 'rounded-lg');
+                    item.innerHTML = `
+                        <div class="flex items-center">
+                            <div class="w-14 h-14 md:w-20 md:h-20 bg-white rounded-lg overflow-hidden flex items-center justify-center">
+                                <img src="${product.image}" alt="${product.name}" class="h-full w-full object-contain">
+                            </div>
+                            <div class="ml-3 md:ml-4 flex-1">
+                                <h3 class="font-medium text-sm md:text-base">${product.name}</h3>
+                                <p class="text-gray-600 text-xs md:text-sm">Premium quality</p>
+                                <div class="flex items-center justify-between mt-1 md:mt-2">
+                                    <span class="text-gray-800 font-medium">$${(product.price * product.quantity).toFixed(2)}</span>
+                                    <div class="flex items-center space-x-2">
+                                        <button class="quantity-btn decrease w-5 h-5 md:w-6 md:h-6 rounded-full bg-gray-200 flex items-center justify-center text-xs md:text-sm">-</button>
+                                        <span class="quantity text-xs md:text-sm">${product.quantity}</span>
+                                        <button class="quantity-btn increase w-5 h-5 md:w-6 md:h-6 rounded-full bg-gray-200 flex items-center justify-center text-xs md:text-sm">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(item);
+
+                    // Quantity buttons
+                    item.querySelector('.increase').addEventListener('click', () => {
+                        product.quantity += 1;
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        if (appliedDiscount > 0) {
+                            let newSubtotal = cart.reduce((sum, p) => sum + (p.price * p.quantity), 0);
+                            appliedDiscount = newSubtotal * 0.05;
+                            localStorage.setItem('discount', appliedDiscount.toFixed(2));
+                        }
+                        renderOrder();
+                    });
+
+                    item.querySelector('.decrease').addEventListener('click', () => {
+                        if (product.quantity > 1) {
+                            product.quantity -= 1;
+                            localStorage.setItem('cart', JSON.stringify(cart));
+                            if (appliedDiscount > 0) {
+                                let newSubtotal = cart.reduce((sum, p) => sum + (p.price * p.quantity), 0);
+                                appliedDiscount = newSubtotal * 0.05;
+                                localStorage.setItem('discount', appliedDiscount.toFixed(2));
+                            }
+                            renderOrder();
+                        }
+                    });
+                });
+
+                const deliveryFee = cart.length > 0 ? 30 : 0;
+                const tax = subtotal * 0.06;
+                updateOrderSummary(subtotal, deliveryFee, tax, discount);
+            }
+
+            function updateOrderSummary(subtotal, deliveryFee, tax, discount) {
+                const total = subtotal + deliveryFee + tax - discount;
+                document.querySelector('.subtotal').textContent = `$${subtotal.toFixed(2)}`;
+                document.querySelector('.delivery').textContent = `$${deliveryFee.toFixed(2)}`;
+                document.querySelector('.discount-amount').textContent = `-$${discount.toFixed(2)}`;
+                document.querySelector('.tax').textContent = `$${tax.toFixed(2)}`;
+                document.querySelector('.total').textContent = `$${total.toFixed(2)}`;
+            }
+
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                let isValid = true;
+                const errors = [];
+                
+                // Validate required fields
+                ['fullName', 'phone', 'address', 'city', 'state', 'postalCode', 'deliveryDate'].forEach(fieldName => {
+                    if (!validateField(fieldName)) {
+                        isValid = false;
+                        errors.push(fields[fieldName].error.textContent);
+                    }
+                });
+
+                // Validate email if provided
+                if (fields.email.element.value.trim() !== '' && !validateField('email')) {
+                    isValid = false;
+                    errors.push(fields.email.error.textContent);
+                }
+
+                // Check if cart is empty
+                const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                if (cart.length === 0) {
+                    isValid = false;
+                    errors.push('Your cart is empty. Please add products before placing an order.');
+                }
+
+                if (!isValid) {
+                    alert('Please correct the following errors:\n' + errors.join('\n'));
+                    return;
+                }
+
+                // Gather form data and include cart and discount
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData.entries());
+                data.products = cart;
+                data.discount = parseFloat(localStorage.getItem('discount') || '0');
+                
+                console.log('Order submitted:', data);
+
+                const isDigitalPayment = document.querySelector('input[name="paymentMethod"]:checked').value === 'digital';
+                if (isDigitalPayment) {
+                    // Redirect to payment page
+                    localStorage.setItem('orderData', JSON.stringify(data)); // Store order data for payment page
+                    window.location.href = 'payment.html';
+                } else {
+                    // Show success animation and redirect
+                    form.querySelector('.space-y-6').classList.add('hidden');
+                    document.getElementById('successAnimation').classList.remove('hidden');
+                    setTimeout(() => {
+                        localStorage.removeItem('cart');
+                        localStorage.removeItem('discount');
+                        localStorage.removeItem('orderData');
+                        window.location.href = 'index.html';
+                    }, 2000);
+                }
+            });
+
+            // Initial render
+            renderOrder();
+        });
+    </script>
+</body>
+</html>
