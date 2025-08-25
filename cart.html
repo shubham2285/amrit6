@@ -13,130 +13,180 @@
             font-family: 'Poppins', sans-serif;
             background-color: #f8fafc;
         }
-        .cart-item { transition: all 0.3s ease; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
-        .cart-item:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
-        .quantity-btn { transition: all 0.2s ease; }
-        .quantity-btn:hover { background-color: #e2e8f0; }
-        .remove-btn { transition: all 0.2s ease; }
-        .remove-btn:hover { color: #ef4444; transform: scale(1.1); }
-        .slide-in { animation: slideIn 0.5s forwards; }
-        @keyframes slideIn { from { transform: translateX(30px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        .checkout-btn { transition: all 0.3s ease; background-size: 200% auto;
-            background-image: linear-gradient(to right, #3b82f6 0%, #6366f1 51%, #3b82f6 100%); }
-        .checkout-btn:hover { background-position: right center; transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3); }
-        .empty-cart-animation { animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); opacity: 0.7; }
-            50% { transform: scale(1.05); opacity: 1; } 100% { transform: scale(1); opacity: 0.7; } }
+        .cart-item { 
+            transition: all 0.3s ease; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); 
+        }
+        .cart-item:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); 
+        }
+        .quantity-btn { 
+            transition: all 0.2s ease; 
+            width: 44px; 
+            height: 44px; /* Increased for touch accessibility */
+        }
+        .quantity-btn:hover { 
+            background-color: #e2e8f0; 
+        }
+        .remove-btn { 
+            transition: all 0.2s ease; 
+            width: 44px; 
+            height: 44px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        .remove-btn:hover { 
+            color: #ef4444; 
+            transform: scale(1.1); 
+        }
+        .slide-in { 
+            animation: slideIn 0.5s forwards; 
+        }
+        @keyframes slideIn { 
+            from { transform: translateX(30px); opacity: 0; } 
+            to { transform: translateX(0); opacity: 1; } 
+        }
+        .checkout-btn { 
+            transition: all 0.3s ease; 
+            background-size: 200% auto;
+            background-image: linear-gradient(to right, #3b82f6 0%, #6366f1 51%, #3b82f6 100%); 
+        }
+        .checkout-btn:hover { 
+            background-position: right center; 
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3); 
+        }
+        .empty-cart-animation { 
+            animation: pulse 2s infinite; 
+        }
+        @keyframes pulse { 
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.05); opacity: 1; } 
+            100% { transform: scale(1); opacity: 0.7; } 
+        }
+        /* Additional responsive styles */
+        @media (max-width: 640px) {
+            .text-3xl { font-size: 1.5rem; }
+            .text-2xl { font-size: 1.25rem; }
+            .text-lg { font-size: 1rem; }
+            .text-sm { font-size: 0.875rem; }
+            .cart-item img { max-height: 120px; }
+            .container { padding-left: 1rem; padding-right: 1rem; }
+        }
+        @media (max-width: 1024px) {
+            .cart-items-container { margin-bottom: 1.5rem; }
+        }
     </style>
 </head>
 <body>
-    <div class="min-h-screen bg-gray-50 pt-8 pb-20">
+    <div class="min-h-screen bg-gray-50 pt-6 pb-16">
         <div class="container mx-auto px-4">
             <!-- Header -->
-            <div class="flex justify-between items-center mb-8">
-                <h1 class="text-3xl font-bold text-blue-600 flex items-center">
+            <div class="flex flex-col sm:flex-row justify-between items-center mb-6">
+                <h1 class="text-2xl sm:text-3xl font-bold text-blue-600 flex items-center mb-4 sm:mb-0">
                     <i class="fas fa-tint mr-2"></i> Amrit Water Bottles
                 </h1>
-                <div class="flex items-center">
-                    <a href="index.html" class="text-gray-600 hover:text-blue-600 mr-4">
+                <div class="flex flex-wrap items-center gap-4">
+                    <a href="index.html" class="text-gray-600 hover:text-blue-600 text-sm sm:text-base">
                         <i class="fas fa-home mr-1"></i> Home
                     </a>
-                    <a href="product-section.html" class="text-gray-600 hover:text-blue-600 mr-4">
+                    <a href="product-section.html" class="text-gray-600 hover:text-blue-600 text-sm sm:text-base">
                         <i class="fas fa-shopping-bag mr-1"></i> Shop
                     </a>
                     <div class="relative">
-                        <a href="cart.html" class="text-gray-600 hover:text-blue-600">
-                            <i class="fas fa-shopping-cart mr-1"></i> Cart <span class="cart-count ml-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs">0</span>
+                        <a href="cart.html" class="text-gray-600 hover:text-blue-600 text-sm sm:text-base">
+                            <i class="fas fa-shopping-cart mr-1"></i> Cart 
+                            <span class="cart-count ml-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs">0</span>
                         </a>
                     </div>
                 </div>
             </div>
             
             <!-- Cart Title -->
-            <div class="bg-white rounded-lg shadow-md p-6 mb-6 slide-in">
+            <div class="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-6 slide-in">
                 <div class="flex items-center justify-between">
-                    <h2 class="text-2xl font-bold text-gray-800 flex items-center">
+                    <h2 class="text-xl sm:text-2xl font-bold text-gray-800 flex items-center">
                         <i class="fas fa-shopping-cart mr-3 text-blue-500"></i> Your Cart
                     </h2>
-                    <span class="text-gray-500 cart-item-count">0 items</span>
+                    <span class="text-gray-500 cart-item-count text-sm sm:text-base">0 items</span>
                 </div>
             </div>
             
-            <!-- Cart Items -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="lg:col-span-2 space-y-4 cart-items-container">
+            <!-- Cart Items and Order Summary -->
+            <div class="grid grid-cols-1 gap-6">
+                <div class="space-y-4 cart-items-container">
                     <!-- Dynamic items will be added here -->
                 </div>
                 
                 <!-- Order Summary -->
-                <div class="bg-white rounded-lg shadow-md p-6 slide-in order-summary" style="animation-delay: 0.4s;">
-                    <h3 class="text-lg font-bold text-gray-800 mb-4">Order Summary</h3>
+                <div class="bg-white rounded-lg shadow-md p-4 sm:p-6 slide-in order-summary" style="animation-delay: 0.4s;">
+                    <h3 class="text-base sm:text-lg font-bold text-gray-800 mb-4">Order Summary</h3>
                     
                     <div class="space-y-3 mb-6">
-                        <div class="flex justify-between">
+                        <div class="flex justify-between text-sm sm:text-base">
                             <span class="text-gray-600">Subtotal</span>
-                            <span class="font-medium subtotal">$0.00</span>
+                            <span class="font-medium subtotal">₹0.00</span>
                         </div>
-                        <div class="flex justify-between">
+                        <div class="flex justify-between text-sm sm:text-base">
                             <span class="text-gray-600">Delivery</span>
-                            <span class="font-medium delivery">$30.00</span>
+                            <span class="font-medium delivery">₹2490.00</span>
                         </div>
-                        <div class="flex justify-between">
+                        <div class="flex justify-between text-sm sm:text-base">
                             <span class="text-gray-600">Discount</span>
-                            <span class="font-medium text-green-500 discount-amount">$0.00</span>
+                            <span class="font-medium text-green-500 discount-amount">₹0.00</span>
                         </div>
                         <div class="pt-3 border-t border-gray-200">
-                            <div class="flex justify-between">
+                            <div class="flex justify-between text-sm sm:text-base">
                                 <span class="text-gray-600">Estimated Tax</span>
-                                <span class="font-medium tax">$0.00</span>
+                                <span class="font-medium tax">₹0.00</span>
                             </div>
                         </div>
                     </div>
                     
                     <div class="border-t border-gray-200 pt-4 mb-6">
                         <div class="flex justify-between items-center">
-                            <span class="font-bold text-lg">Total</span>
-                            <span class="font-bold text-2xl text-blue-600 total-amount">$0.00</span>
+                            <span class="font-bold text-base sm:text-lg">Total</span>
+                            <span class="font-bold text-lg sm:text-2xl text-blue-600 total-amount">₹0.00</span>
                         </div>
                     </div>
-                   <!-- Order Summary -->
-<a href="deliver.html" 
-   class="checkout-btn w-full py-3 px-6 rounded-lg text-white font-bold text-lg mb-4 block text-center">
-    Proceed to Checkout
-</a>
-                    <div class="flex items-center justify-center text-gray-500 text-sm">
+                    <a href="deliver.html" 
+                       class="checkout-btn w-full py-3 px-6 rounded-lg text-white font-bold text-base sm:text-lg mb-4 block text-center">
+                        Proceed to Checkout
+                    </a>
+                    <div class="flex items-center justify-center text-gray-500 text-xs sm:text-sm">
                         <i class="fas fa-lock mr-2"></i>
                         <span>Secure Checkout</span>
                     </div>
                     
                     <div class="mt-6 pt-6 border-t border-gray-200">
-                        <h4 class="font-medium text-gray-700 mb-3">Accepted Payment Methods</h4>
-                        <div class="flex space-x-4">
-                            <img src="https://placehold.co/40x25" alt="Visa payment method logo" class="h-6 opacity-70">
-                            <img src="https://placehold.co/40x25" alt="Mastercard payment method logo" class="h-6 opacity-70">
-                            <img src="https://placehold.co/40x25" alt="Paypal payment method logo" class="h-6 opacity-70">
-                            <img src="https://placehold.co/40x25" alt="Apple Pay payment method logo" class="h-6 opacity-70">
+                        <h4 class="font-medium text-gray-700 mb-3 text-sm sm:text-base">Accepted Payment Methods</h4>
+                        <div class="flex flex-wrap gap-4 justify-center">
+                            <img src="https://placehold.co/40x25" alt="Visa payment method logo" class="h-5 sm:h-6 opacity-70">
+                            <img src="https://placehold.co/40x25" alt="Mastercard payment method logo" class="h-5 sm:h-6 opacity-70">
+                            <img src="https://placehold.co/40x25" alt="Paypal payment method logo" class="h-5 sm:h-6 opacity-70">
+                            <img src="https://placehold.co/40x25" alt="Apple Pay payment method logo" class="h-5 sm:h-6 opacity-70">
                         </div>
                     </div>
                 </div>
             </div>
             
             <!-- Empty Cart State (hidden by default) -->
-            <div id="empty-cart" class="bg-white rounded-lg shadow-md p-8 text-center hidden">
+            <div id="empty-cart" class="bg-white rounded-lg shadow-md p-6 sm:p-8 text-center hidden">
                 <div class="empty-cart-animation mb-6">
-                    <i class="fas fa-frown text-5xl text-gray-400"></i>
+                    <i class="fas fa-frown text-4xl sm:text-5xl text-gray-400"></i>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-700 mb-2">Your cart is empty</h3>
-                <p class="text-gray-500 mb-6">Looks like you haven't added anything to your cart yet</p>
-                <a href="product-section.html" class="inline-block bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg transition duration-300">
+                <h3 class="text-lg sm:text-xl font-semibold text-gray-700 mb-2">Your cart is empty</h3>
+                <p class="text-gray-500 mb-6 text-sm sm:text-base">Looks like you haven't added anything to your cart yet</p>
+                <a href="product-section.html" class="inline-block bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg transition duration-300 text-sm sm:text-base">
                     Browse Products
                 </a>
             </div>
             
             <!-- Continue Shopping -->
             <div class="mt-8 text-center">
-                <a href="product-section.html" class="inline-block text-blue-600 hover:text-blue-800 font-medium">
+                <a href="product-section.html" class="inline-block text-blue-600 hover:text-blue-800 font-medium text-sm sm:text-base">
                     <i class="fas fa-arrow-left mr-2"></i> Continue Shopping
                 </a>
             </div>
@@ -147,6 +197,7 @@
         // Cart functionality
         document.addEventListener('DOMContentLoaded', function() {
             let appliedDiscount = 0;
+            const EXCHANGE_RATE = 83; // 1 USD = 83 INR
 
             function updateCartCount() {
                 let cart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -177,32 +228,32 @@
 
                 cart.forEach((product, index) => {
                     const item = document.createElement('div');
-                    item.classList.add('cart-item', 'bg-white', 'rounded-lg', 'shadow-md', 'p-4', 'flex', 'flex-col', 'md:flex-row', 'slide-in');
+                    item.classList.add('cart-item', 'bg-white', 'rounded-lg', 'shadow-md', 'p-4', 'flex', 'flex-col', 'sm:flex-row', 'slide-in');
                     item.style.animationDelay = `${index * 0.1}s`;
                     item.innerHTML = `
-                        <div class="md:w-1/4 mb-4 md:mb-0">
-                            <img src="${product.image}" alt="${product.name}" class="w-full h-auto rounded-lg object-cover">
+                        <div class="sm:w-1/3 mb-4 sm:mb-0">
+                            <img src="${product.image}" alt="${product.name}" class="w-full h-auto rounded-lg object-cover max-h-32 sm:max-h-40">
                         </div>
-                        <div class="md:w-3/4 md:pl-6">
-                            <div class="flex justify-between">
-                                <h3 class="text-lg font-semibold text-gray-800">${product.name}</h3>
+                        <div class="sm:w-2/3 sm:pl-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-base sm:text-lg font-semibold text-gray-800">${product.name}</h3>
                                 <button class="remove-btn text-gray-400 hover:text-red-500">
                                     <i class="fas fa-times"></i>
                                 </button>
                             </div>
-                            <p class="text-gray-500 text-sm mb-2">Quantity: ${product.quantity}</p>
+                            <p class="text-gray-500 text-xs sm:text-sm mb-2">Quantity: ${product.quantity}</p>
                             <div class="flex justify-between items-center">
                                 <div class="flex items-center">
-                                    <button class="quantity-btn decrease w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center">
+                                    <button class="quantity-btn decrease rounded-full border border-gray-300 flex items-center justify-center">
                                         <i class="fas fa-minus text-xs"></i>
                                     </button>
-                                    <span class="mx-4 font-medium quantity">${product.quantity}</span>
-                                    <button class="quantity-btn increase w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center">
+                                    <span class="mx-3 sm:mx-4 font-medium quantity text-sm sm:text-base">${product.quantity}</span>
+                                    <button class="quantity-btn increase rounded-full border border-gray-300 flex items-center justify-center">
                                         <i class="fas fa-plus text-xs"></i>
                                     </button>
                                 </div>
                                 <div>
-                                    <span class="font-bold text-lg text-gray-800">$${(product.price * product.quantity).toFixed(2)}</span>
+                                    <span class="font-bold text-base sm:text-lg text-gray-800">₹${((product.price * product.quantity) * EXCHANGE_RATE).toFixed(2)}</span>
                                 </div>
                             </div>
                         </div>
@@ -240,16 +291,16 @@
 
             function updateSummary(discount = 0) {
                 let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-                let subtotal = cart.reduce((sum, p) => sum + (p.price * p.quantity), 0);
-                let deliveryFee = cart.length > 0 ? 30 : 0;
+                let subtotal = cart.reduce((sum, p) => sum + (p.price * p.quantity), 0) * EXCHANGE_RATE;
+                let deliveryFee = cart.length > 0 ? 30 * EXCHANGE_RATE : 0;
                 let tax = subtotal * 0.06;
-                let total = subtotal + deliveryFee - discount + tax;
+                let total = subtotal + deliveryFee - (discount * EXCHANGE_RATE) + tax;
 
-                document.querySelector('.subtotal').textContent = `$${subtotal.toFixed(2)}`;
-                document.querySelector('.delivery').textContent = `$${deliveryFee.toFixed(2)}`;
-                document.querySelector('.discount-amount').textContent = `-$${discount.toFixed(2)}`;
-                document.querySelector('.tax').textContent = `$${tax.toFixed(2)}`;
-                document.querySelector('.total-amount').textContent = `$${total.toFixed(2)}`;
+                document.querySelector('.subtotal').textContent = `₹${subtotal.toFixed(2)}`;
+                document.querySelector('.delivery').textContent = `₹${deliveryFee.toFixed(2)}`;
+                document.querySelector('.discount-amount').textContent = `-₹${(discount * EXCHANGE_RATE).toFixed(2)}`;
+                document.querySelector('.tax').textContent = `₹${tax.toFixed(2)}`;
+                document.querySelector('.total-amount').textContent = `₹${total.toFixed(2)}`;
             }
 
             // Checkout button
